@@ -13,14 +13,12 @@
 
   <!-- camera driver node -->
   <include file="$(find-pkg-share dvrk_video)/launch/gscam_decklink_glimagesink.launch.xml">
-    <arg name="camera_name" value="$(var left_camera_name)"/>
     <arg name="device" value="$(var left_cam_device)"/>
     <arg name="namespace" value="$(var rig_name)/left"/>
   </include>
 
   <!-- camera driver node -->
   <include file="$(find-pkg-share dvrk_video)/launch/gscam_decklink_glimagesink.launch.xml">
-    <arg name="camera_name" value="$(var right_camera_name)"/>
     <arg name="device" value="$(var right_cam_device)"/>
     <arg name="namespace" value="$(var rig_name)/right"/>
   </include>
