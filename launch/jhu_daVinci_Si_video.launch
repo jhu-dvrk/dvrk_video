@@ -1,0 +1,36 @@
+<!-- -*- mode: XML -*- -->
+
+<launch>
+
+  <!-- Set the name -->
+  <arg name="rig_name" default="jhu_daVinci_Si"/>
+  <arg name="left_cam_device" default="1"/>
+  <arg name="right_cam_device" default="0"/>
+  <arg name="left_preview" default="True"/>
+  <arg name="right_preview" default="False"/>
+
+  <!-- camera driver nodes -->
+  <include file="$(find dvrk_video)/launch/gscam_decklink_stereo_glimagesink.launch">
+    <arg name="rig_name" value="$(arg rig_name)"/>
+    <arg name="left_cam_device" value="$(arg left_cam_device)"/>
+    <arg name="right_cam_device" value="$(arg right_cam_device)"/>
+  </include>
+
+  <!-- display video using simple ros image_view -->
+  <node if="$(arg left_preview)"
+	name="left_view"
+	ns="$(arg rig_name)"
+	pkg="rqt_image_view"
+	type="rqt_image_view"
+	args="/$(arg rig_name)/left/image_raw/compressed">
+  </node>
+  <node if="$(arg right_preview)"
+	name="right_view"
+	ns="$(arg rig_name)"
+	pkg="rqt_image_view"
+	type="rqt_image_view"
+	args="/$(arg rig_name)/right/image_raw/compressed">
+    <param name="autosize" value="False" />
+  </node>
+
+</launch>
