@@ -19,16 +19,18 @@ def generate_launch_description():
         'deinterlace',
         description = 'add deinterlace filter to the gstreamer pipeline',
         default_value = 'False',
-        choices = ['True', 'False'])
+        choices = ['True', 'False', '1', '0'])
 
     gscam_node = Node(
         package = 'gscam',
         executable = 'gscam_node',
         output = 'screen',
         parameters = [{
-            'gscam_config': PythonExpression(['"v4l2src device=" + "', device_configuration, '"',
-                                              ' + (" ! deinterlace" if ', deinterlace_configuration, ' else "")',
-                                              ' + " ! videoconvert"']),
+            'gscam_config': PythonExpression([
+                '"v4l2src device=" + "', device_configuration, '"',
+                ' + (" ! deinterlace" if ', deinterlace_configuration, ' else "")',
+                ' + " ! videoconvert"'
+            ]),
             'camera_info_url': camera_info_url,
         }],
         )
