@@ -4,33 +4,33 @@
 
   <!-- Set the name -->
   <arg name="stereo_rig_name"/>
-  <arg name="left_cam_device"
+  <arg name="left_device"
        default="1"/>
-  <arg name="right_cam_device"
+  <arg name="right_device"
        default="0"/>
-  <arg name="images_per_seconds"
+  <arg name="images_per_second"
        default="0"/>
   <arg name="stereo_proc"
        default="False"/>
 
   <!-- set lower default rate if stereo proc is activated -->
-  <arg name="_images_per_seconds"
-       if="$(eval ((images_per_seconds == 0) and stereo_proc))"
+  <arg name="_images_per_second"
+       if="$(eval ((images_per_second == 0) and stereo_proc))"
        default="15"/>
-  <arg name="_images_per_seconds"
-       unless="$(eval ((images_per_seconds == 0) and stereo_proc))"
-       default="$(arg images_per_seconds)"/>
+  <arg name="_images_per_second"
+       unless="$(eval ((images_per_second == 0) and stereo_proc))"
+       default="$(arg images_per_second)"/>
 
   <!-- camera driver nodes -->
   <include file="$(find dvrk_video)/launch/gscam_decklink_stereo.launch">
     <arg name="stereo_rig_name"
 	 value="$(arg stereo_rig_name)"/>
-    <arg name="left_cam_device"
-	 value="$(arg left_cam_device)"/>
-    <arg name="right_cam_device"
-	 value = "$(arg right_cam_device)"/>
-    <arg name="images_per_seconds"
-	 value="$(arg _images_per_seconds)"/>
+    <arg name="left_device"
+	 value="$(arg left_device)"/>
+    <arg name="right_device"
+	 value = "$(arg right_device)"/>
+    <arg name="images_per_second"
+	 value="$(arg _images_per_second)"/>
     <arg name="deinterlace"
 	 value="True"/>
     <arg name="stereo_proc"

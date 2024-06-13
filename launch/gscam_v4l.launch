@@ -10,17 +10,17 @@
        default="package://$(arg camera_name)/calibrations/camera.yaml"/>
   <arg name="mono_proc"
        default="False"/>
-  <arg name="images_per_seconds"
+  <arg name="images_per_second"
        default="30"/>
   <arg name="deinterlace"
        default="True"/>
 
   <!-- generate dummy arguments to build the gscam_config -->
   <arg name="_gscam_videorate"
-       if="$(eval images_per_seconds > 0)"
-       default="! videorate ! video/x-raw,framerate=$(arg images_per_seconds)/1 "/>
+       if="$(eval images_per_second > 0)"
+       default="! videorate ! video/x-raw,framerate=$(arg images_per_second)/1 "/>
   <arg name="_gscam_videorate"
-       unless="$(eval images_per_seconds > 0)"
+       unless="$(eval images_per_second > 0)"
        default=""/>
 
   <arg name="_gscam_deinterlace"

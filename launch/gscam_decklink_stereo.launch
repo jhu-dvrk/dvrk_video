@@ -4,15 +4,15 @@
 
   <!-- Set this to your camera's name -->
   <arg name="stereo_rig_name"/>
-  <arg name="left_camera_name"
+  <arg name="left_name"
        default="left"/>
-  <arg name="left_cam_device"
+  <arg name="left_device"
        default="1"/>
-  <arg name="right_camera_name"
+  <arg name="right_name"
        default="right"/>
-  <arg name="right_cam_device"
+  <arg name="right_device"
        default="0"/>
-  <arg name="images_per_seconds"
+  <arg name="images_per_second"
        default="0"/>
   <arg name="crop_top"
        default="0"/>
@@ -34,14 +34,14 @@
       file="$(find dvrk_video)/launch/gscam_decklink.launch"
       ns="$(arg stereo_rig_name)">
     <arg name="camera_name"
-	 value="$(arg left_camera_name)"/>
+	 value="$(arg left_name)"/>
     <arg name="device"
-	 value="$(arg left_cam_device)"/>
+	 value="$(arg left_device)"/>
     <arg name="camera_info_url"
-	 value="package://$(arg stereo_rig_name)/calibrations/left.yaml"/> 
+	 value="package://$(arg stereo_rig_name)/calibrations/left.yaml"/>
     <!-- pass through -->
-    <arg name="images_per_seconds"
-	 value="$(arg images_per_seconds)"/>
+    <arg name="images_per_second"
+	 value="$(arg images_per_second)"/>
     <arg name="crop_top"
 	 default="$(arg crop_top)"/>
     <arg name="crop_bottom"
@@ -61,14 +61,14 @@
       file="$(find dvrk_video)/launch/gscam_decklink.launch"
       ns="$(arg stereo_rig_name)">
     <arg name="camera_name"
-	 value="$(arg right_camera_name)"/>
+	 value="$(arg right_name)"/>
     <arg name="device"
-	 value="$(arg right_cam_device)"/>
+	 value="$(arg right_device)"/>
     <arg name="camera_info_url"
-	 value="package://$(arg stereo_rig_name)/calibrations/right.yaml"/> 
+	 value="package://$(arg stereo_rig_name)/calibrations/right.yaml"/>
     <!-- pass through -->
-    <arg name="images_per_seconds"
-	 value="$(arg images_per_seconds)"/>
+    <arg name="images_per_second"
+	 value="$(arg images_per_second)"/>
     <arg name="crop_top"
 	 default="$(arg crop_top)"/>
     <arg name="crop_bottom"
