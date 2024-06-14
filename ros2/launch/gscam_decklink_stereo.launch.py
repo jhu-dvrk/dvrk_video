@@ -74,7 +74,7 @@ def generate_launch_description():
     left_gscam_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(gscam_launch),
         launch_arguments =
-        {'camera_name': 'left',
+        {'camera_name': PythonExpression(['"', stereo_rig_name_configuration, '" + "/left"']),
          'device': left_device_configuration,
          'images_per_second': images_per_second_configuration,
          'crop_top': crop_top_configuration,
@@ -88,7 +88,7 @@ def generate_launch_description():
     right_gscam_node = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(gscam_launch),
         launch_arguments =
-        {'camera_name': 'right',
+        {'camera_name': PythonExpression(['"', stereo_rig_name_configuration, '" + "/right"']),
          'device': right_device_configuration,
          'images_per_second': images_per_second_configuration,
          'crop_top': crop_top_configuration,
