@@ -87,7 +87,7 @@ def generate_launch_description():
                 '" if ((', crop_top_configuration, ' > 0) or (', crop_bottom_configuration, ' > 0) or (',
                 crop_left_configuration, ' > 0) or (', crop_right_configuration, ' > 0)) else "")',
                 
-                ' + (" ! deinterlace" if ', deinterlace_configuration, ' else "")',
+                ' + (" ! deinterlace fields=top" if ', deinterlace_configuration, ' else "")',
                 
                 ' + (" ! tee name=t t. ! queue ! glimagesink force-aspect-ratio=false t. ! queue" if ', glimagesink_configuration, ' else "")',
                 
