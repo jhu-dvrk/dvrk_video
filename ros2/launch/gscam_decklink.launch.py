@@ -79,7 +79,8 @@ def generate_launch_description():
                 '"decklinkvideosrc"',
                 ' + " device-number=" + "', device_configuration, '"',
                 ' + " connection=" + "', connection_configuration, '"',
-                
+                ' + " ! videoconvert "',
+
                 ' + (" ! videorate ! video/x-raw,framerate=', images_per_second_configuration, '/1" if ', images_per_second_configuration, ' != 0 else "")',
 
                 ' + (" ! videocrop top=', crop_top_configuration, ' bottom=', crop_bottom_configuration,
@@ -87,11 +88,9 @@ def generate_launch_description():
                 '" if ((', crop_top_configuration, ' > 0) or (', crop_bottom_configuration, ' > 0) or (',
                 crop_left_configuration, ' > 0) or (', crop_right_configuration, ' > 0)) else "")',
                 
-                ' + (" ! deinterlace fields=top" if ', deinterlace_configuration, ' else "")',
+                ' + (" ! deinterlace" if ', deinterlace_configuration, ' else "")',
                 
-                ' + (" ! tee name=t t. ! queue ! glimagesink force-aspect-ratio=false t. ! queue" if ', glimagesink_configuration, ' else "")',
-                
-                ' + " ! videoconvert"'
+                ' + (" ! tee name=t t. ! queue ! glimagesink force-aspect-ratio=false t. ! queue" if ', glimagesink_configuration, ' else "")'
             ]),
             'camera_info_url': camera_info_url_configuration,
             'camera_name': camera_name_configuration,
