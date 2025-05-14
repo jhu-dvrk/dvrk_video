@@ -37,6 +37,10 @@
 	 value="True"/>
     <arg name="stereo_proc"
 	 default="$(arg stereo_proc)"/>
+    <arg name="crop_top"
+	 value="60"/>
+    <arg name="crop_bottom"
+	 value="60"/>
 
   </include>
 
