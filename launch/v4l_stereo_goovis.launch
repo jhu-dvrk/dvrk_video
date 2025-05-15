@@ -5,9 +5,9 @@
   <!-- Set the name -->
   <arg name="stereo_rig_name"/>
   <arg name="left_device"
-       default="/dev/video0"/>
+       default="/dev/csr-left"/>
   <arg name="right_device"
-       default="/dev/video2"/>
+       default="/dev/csr-right"/>
   <arg name="images_per_second"
        default="0"/>
   <arg name="stereo_proc"
