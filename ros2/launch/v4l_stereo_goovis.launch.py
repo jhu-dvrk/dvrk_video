@@ -8,12 +8,12 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    stereo_rig_name = DeclareLaunchArgument('stereo_rig_name', default_value='stereo')
+    stereo_rig_name = DeclareLaunchArgument('stereo_rig_name', default_value='dvrk')
     # Example: full resolution; you can override on CLI if needed.
     images_per_sec  = DeclareLaunchArgument('images_per_second', default_value='0')
     stereo_proc     = DeclareLaunchArgument('stereo_proc', default_value='False')
-    left_device     = DeclareLaunchArgument('left_device', default_value='/dev/video0')
-    right_device    = DeclareLaunchArgument('right_device', default_value='/dev/video2')
+    left_device     = DeclareLaunchArgument('left_device', default_value='/dev/video-left')
+    right_device    = DeclareLaunchArgument('right_device', default_value='/dev/video-right')
 
     stereo_launch = PathJoinSubstitution([FindPackageShare('dvrk_video'), 'launch', 'gscam_v4l_stereo.launch.py'])
 
