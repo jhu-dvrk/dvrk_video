@@ -3,17 +3,28 @@
 
 <launch>
 
-  <arg name="camera_name"/>  
+  <arg name="camera_name"
+       default="camera"/>
   <arg name="device"
        default="/dev/video0"/>
   <arg name="camera_info_url"
-       default="package://$(arg camera_name)/calibrations/camera.yaml"/>
+       default="package://gscam/examples/uncalibrated_parameters.ini"/>
   <arg name="mono_proc"
        default="False"/>
   <arg name="images_per_second"
-       default="30"/>
+       default="0"/>
+  <arg name="crop_top"
+       default="0"/>
+  <arg name="crop_bottom"
+       default="0"/>
+  <arg name="crop_left"
+       default="0"/>
+  <arg name="crop_right"
+       default="0"/>
   <arg name="deinterlace"
        default="True"/>
+  <arg name="glimagesink"
+       default="False"/>
 
   <!-- generate dummy arguments to build the gscam_config -->
   <arg name="_gscam_videorate"
@@ -23,6 +34,13 @@
        unless="$(eval images_per_second > 0)"
        default=""/>
 
+  <arg name="_gscam_videocrop"
+       if="$(eval ((crop_top > 0) or (crop_bottom > 0) or (crop_left  > 0) or (crop_right > 0)))"
+       default=" ! videocrop top=$(arg crop_top) bottom=$(arg crop_bottom) left=$(arg crop_left) right=$(arg crop_right)"/>
+  <arg name="_gscam_videocrop"
+       unless="$(eval ((crop_top > 0) or (crop_bottom > 0) or (crop_left > 0) or (crop_right > 0)))"
+       default=""/>
+
   <arg name="_gscam_deinterlace"
        if="$(arg deinterlace)"
        default="! deinterlace "/>
@@ -30,7 +48,14 @@
        unless="$(arg deinterlace)"
        default=""/>
 
-  <node name="v4l_test_gscam"
+  <arg name="_gscam_glimagesink"
+       if="$(arg glimagesink)"
+       default="! tee name=t  t. ! queue ! glimagesink force-aspect-ratio=false t. ! queue "/>
+  <arg name="_gscam_glimagesink"
+       unless="$(arg glimagesink)"
+       default=""/>
+
+  <node name="$(arg camera_name)"
         pkg="gscam"
         type="gscam"
 	output="screen">
@@ -40,7 +65,7 @@
 	   value="$(arg camera_info_url)"/>
     <!-- different gscam_config depending on parameters -->
     <param name="gscam_config"
-	   value="v4l2src device=$(arg device) $(arg _gscam_videorate) $(arg _gscam_deinterlace) ! videoconvert"/>
+	   value="v4l2src device=$(arg device) $(arg _gscam_videorate) $(arg _gscam_videocrop) $(arg _gscam_deinterlace) $(arg _gscam_glimagesink) ! videoconvert"/>
     <param name="frame_id"
 	   value="/$(arg camera_name)_frame"/>
     <param name="sync_sink"
@@ -61,5 +86,13 @@
 	pkg="tf"
 	type="static_transform_publisher"
 	args="1 2 3 0 -3.141 0 /world /$(arg camera_name) 10"/>
+
+  <!-- display video using simple ros image_view -->
+  <!-- <node name="$(arg camera_name)_test"
+	pkg="image_view"
+	type="image_view"
+	args="image:=/$(arg camera_name)/image_raw">
+    <param name="autosize" value="True" />
+  </node> -->
 
 </launch>

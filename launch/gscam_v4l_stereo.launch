@@ -1,0 +1,95 @@
+<!-- -*- mode: XML -*- -->
+
+<launch>
+
+  <!-- Set this to your camera's name -->
+  <arg name="stereo_rig_name"/>
+  <arg name="left_name"
+       default="left"/>
+  <arg name="left_device"
+       default="/dev/video0"/>
+  <arg name="right_name"
+       default="right"/>
+  <arg name="right_device"
+       default="/dev/video2"/>
+  <arg name="images_per_second"
+       default="0"/>
+  <arg name="crop_top"
+       default="0"/>
+  <arg name="crop_bottom"
+       default="0"/>
+  <arg name="crop_left"
+       default="0"/>
+  <arg name="crop_right"
+       default="0"/>
+  <arg name="deinterlace"
+       default="True"/>
+  <arg name="glimagesink"
+       default="False"/>
+  <arg name="stereo_proc"
+       default="False"/>
+
+  <!-- left camera driver node -->
+  <include
+      file="$(find dvrk_video)/launch/gscam_v4l.launch"
+      ns="$(arg stereo_rig_name)">
+    <arg name="camera_name"
+	 value="$(arg left_name)"/>
+    <arg name="device"
+	 value="$(arg left_device)"/>
+    <arg name="camera_info_url"
+	 value="package://$(arg stereo_rig_name)/calibrations/left.yaml"/>
+    <!-- pass through -->
+    <arg name="images_per_second"
+	 value="$(arg images_per_second)"/>
+    <arg name="crop_top"
+	 default="$(arg crop_top)"/>
+    <arg name="crop_bottom"
+	 default="$(arg crop_bottom)"/>
+    <arg name="crop_left"
+	 default="$(arg crop_left)"/>
+    <arg name="crop_right"
+	 default="$(arg crop_right)"/>
+    <arg name="deinterlace"
+	 value="$(arg deinterlace)"/>
+    <arg name="glimagesink"
+	 value="$(arg glimagesink)"/>
+  </include>
+
+  <!-- right camera driver node -->
+  <include
+      file="$(find dvrk_video)/launch/gscam_v4l.launch"
+      ns="$(arg stereo_rig_name)">
+    <arg name="camera_name"
+	 value="$(arg right_name)"/>
+    <arg name="device"
+	 value="$(arg right_device)"/>
+    <arg name="camera_info_url"
+	 value="package://$(arg stereo_rig_name)/calibrations/right.yaml"/>
+    <!-- pass through -->
+    <arg name="images_per_second"
+	 value="$(arg images_per_second)"/>
+    <arg name="crop_top"
+	 default="$(arg crop_top)"/>
+    <arg name="crop_bottom"
+	 default="$(arg crop_bottom)"/>
+    <arg name="crop_left"
+	 default="$(arg crop_left)"/>
+    <arg name="crop_right"
+	 default="$(arg crop_right)"/>
+    <arg name="deinterlace"
+	 value="$(arg deinterlace)"/>
+    <arg name="glimagesink"
+	 value="$(arg glimagesink)"/>
+  </include>
+
+  <!-- stereo image processing -->
+  <node if="$(arg stereo_proc)"
+	name="stereo_proc"
+	ns="$(arg stereo_rig_name)"
+	pkg="stereo_image_proc"
+	type="stereo_image_proc"
+	output="screen">
+  </node>
+
+</launch>

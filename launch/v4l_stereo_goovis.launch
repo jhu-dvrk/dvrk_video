@@ -1,0 +1,47 @@
+<!-- -*- mode: XML -*- -->
+
+<launch>
+
+  <!-- Set the name -->
+  <arg name="stereo_rig_name"/>
+  <arg name="left_device"
+       default="/dev/csr-left"/>
+  <arg name="right_device"
+       default="/dev/csr-right"/>
+  <arg name="images_per_second"
+       default="0"/>
+  <arg name="stereo_proc"
+       default="False"/>
+
+  <!-- set lower default rate if stereo proc is activated -->
+  <arg name="_images_per_second"
+       if="$(eval ((images_per_second == 0) and stereo_proc))"
+       default="15"/>
+  <arg name="_images_per_second"
+       unless="$(eval ((images_per_second == 0) and stereo_proc))"
+       default="$(arg images_per_second)"/>
+
+  <!-- camera driver nodes -->
+  <include file="$(find dvrk_video)/launch/gscam_v4l_stereo.launch">
+    <arg name="stereo_rig_name"
+	 value="$(arg stereo_rig_name)"/>
+    <arg name="left_device"
+	 value="$(arg left_device)"/>
+    <arg name="right_device"
+	 value = "$(arg right_device)"/>
+    <arg name="images_per_second"
+	 value="$(arg _images_per_second)"/>
+    <arg name="deinterlace"
+	 value="True"/>
+    <arg name="glimagesink"
+	 value="True"/>
+    <arg name="stereo_proc"
+	 default="$(arg stereo_proc)"/>
+    <arg name="crop_top"
+	 value="60"/>
+    <arg name="crop_bottom"
+	 value="60"/>
+
+  </include>
+
+</launch>
