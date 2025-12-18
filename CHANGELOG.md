@@ -1,6 +1,13 @@
 Change log
 ==========
 
+2.4.0 (2025-12-18)
+==================
+
+* Added image rectification for ROS2 + use dvrk_video to install user calibration files
+* Add ROS2 v4l pipeline
+* Bumped cmake minimum required to 3.16
+
 2.3.0 (2024-08-31)
 ==================
 
