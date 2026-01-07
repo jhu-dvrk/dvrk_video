@@ -1,7 +1,7 @@
 Change log
 ==========
 
-2.4.0 (2025-12-18)
+2.4.0 (2026-01-07)
 ==================
 
 * Added image rectification for ROS2 + use dvrk_video to install user calibration files
