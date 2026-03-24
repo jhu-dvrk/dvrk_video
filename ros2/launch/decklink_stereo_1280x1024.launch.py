@@ -32,8 +32,7 @@ def generate_launch_description():
     )
 
     stereo_gscam_launch =  [
-        PathJoinSubstitution([FindPackageShare('dvrk_video'), 'launch', '']),
-        'gscam_decklink_stereo.launch.py',
+        PathJoinSubstitution([FindPackageShare('dvrk_video'), 'launch', 'gscam_decklink_stereo.launch.py'])
     ]
 
     stereo_gscam_node = IncludeLaunchDescription(
