@@ -67,8 +67,7 @@ def generate_launch_description():
         choices = ['True', 'False', '0', '1'])
 
     gscam_launch =  [
-        PathJoinSubstitution([FindPackageShare('dvrk_video'), 'launch', '']),
-        'gscam_decklink.launch.py',
+        PathJoinSubstitution([FindPackageShare('dvrk_video'), 'launch', 'gscam_decklink.launch.py'])
     ]
 
     left_gscam_node = IncludeLaunchDescription(
