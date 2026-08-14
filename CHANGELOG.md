@@ -1,6 +1,12 @@
 Change log
 ==========
 
+2.5.0 (TBD)
+===========
+
+* Bug fixes:
+  * Fixed ROS 2 launch-file paths for Jazzy.
+
 2.4.0 (2026-01-07)
 ==================
 
